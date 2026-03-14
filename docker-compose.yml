@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    env_file: .env
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./data:/app/data
+      - ./apps/api/src:/app/src
+    depends_on:
+      - db
+    networks:
+      - ollamacheck-network
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+    networks:
+      - ollamacheck-network
+
+  db:
+    image: sqlite:latest
+    volumes:
+      - ./data/db.sqlite:/app/data/db.sqlite
+    networks:
+      - ollamacheck-network
+
+networks:
+  ollamacheck-network:
+    driver: bridge
+
+volumes:
+  data:

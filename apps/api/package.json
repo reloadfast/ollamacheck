@@ -1,0 +1,40 @@
+{
+  "name": "@ollamacheck/api",
+  "version": "1.0.0",
+  "description": "OllamaCheck API backend",
+  "private": true,
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src/**/*.ts",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "fastify": "^4.28.0",
+    "@fastify/helmet": "^11.0.0",
+    "@fastify/cors": "^6.0.0",
+    "@fastify/rate-limit": "^8.0.0",
+    "zod": "^3.22.0",
+    "drizzle-orm": "^0.30.0",
+    "sqlite3": "^5.1.6",
+    "node-cron": "^3.0.0",
+    "@types/node": "^20.0.0",
+    "node-fetch": "^3.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "@types/sinon": "^17.0.0",
+    "vitest": "^1.0.0",
+    "supertest": "^6.3.0",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0"
+  }
+}

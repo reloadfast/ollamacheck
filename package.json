@@ -1,0 +1,27 @@
+{
+  "name": "ollamacheck",
+  "version": "1.0.0",
+  "description": "Ollama GPU-Fit Model Tracker",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm build:api && pnpm build:web",
+    "build:api": "cd apps/api && pnpm build",
+    "build:web": "cd apps/web && pnpm build",
+    "dev": "concurrently \"pnpm dev:api\" \"pnpm dev:web\"",
+    "dev:api": "cd apps/api && pnpm dev",
+    "dev:web": "cd apps/web && pnpm dev",
+    "test": "pnpm test:api && pnpm test:web",
+    "test:api": "cd apps/api && pnpm test",
+    "test:web": "cd apps/web && pnpm test",
+    "lint": "pnpm lint:api && pnpm lint:web",
+    "lint:api": "cd apps/api && pnpm lint",
+    "lint:web": "cd apps/web && pnpm lint"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
