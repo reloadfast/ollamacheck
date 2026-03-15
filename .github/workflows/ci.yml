@@ -19,10 +19,14 @@ jobs:
         node-version: '20'
         cache: 'pnpm'
 
-    - name: Install pnpm
+    - name: Install pnpm from scratch
       run: |
-        npm install -g pnpm
-        echo "PNPM_PATH=$(which pnpm)" >> $GITHUB_ENV
+        # Remove any existing pnpm installations
+        which pnpm && sudo rm -f $(which pnpm)
+        # Install pnpm using npm
+        npm install -g pnpm@latest
+        # Verify installation
+        pnpm --version
 
     - name: Install build dependencies for native modules
       run: |
