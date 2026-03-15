@@ -17,16 +17,25 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'pnpm'
+        cache: false
 
     - name: Install pnpm from scratch
       run: |
         # Remove any existing pnpm installations
-        which pnpm && sudo rm -f $(which pnpm)
-        # Install pnpm using npm
-        npm install -g pnpm@latest
+        if command -v pnpm > /dev/null; then
+          echo "Removing existing pnpm installation"
+          sudo rm -f $(which pnpm)
+        fi
+        # Install pnpm using npm with forced reinstall
+        npm install -g pnpm@latest --force
         # Verify installation
-        pnpm --version
+        if command -v pnpm > /dev/null; then
+          echo "pnpm installed successfully"
+          pnpm --version
+        else
+          echo "ERROR: pnpm installation failed"
+          exit 1
+        fi
 
     - name: Install build dependencies for native modules
       run: |
