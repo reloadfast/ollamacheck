@@ -41,8 +41,13 @@ jobs:
       env:
         PNPM_CACHE_DIR: ~/.pnpm-store
 
-    - name: Build application
-      run: pnpm build
+    - name: Build API
+      run: pnpm build:api
+      env:
+        PNPM_CACHE_DIR: ~/.pnpm-store
+
+    - name: Build Web
+      run: pnpm build:web
       env:
         PNPM_CACHE_DIR: ~/.pnpm-store
 
