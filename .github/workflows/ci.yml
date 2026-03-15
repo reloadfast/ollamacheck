@@ -20,7 +20,9 @@ jobs:
         cache: 'pnpm'
 
     - name: Install pnpm
-      run: npm install -g pnpm
+      run: |
+        npm install -g pnpm
+        echo "PNPM_PATH=$(which pnpm)" >> $GITHUB_ENV
 
     - name: Install build dependencies for native modules
       run: |
