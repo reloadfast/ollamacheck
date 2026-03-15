@@ -1,6 +1,4 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { sqliteDb } from '../db';
-import { categorySchema } from '@ollamacheck/shared/src/schema';
 
 // Get all categories
 export async function getCategories(request: FastifyRequest, reply: FastifyReply) {

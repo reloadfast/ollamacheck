@@ -1,6 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { scrapeOllamaModels } from '../modules/scraper/index';
-import { sqliteDb } from '../db';
 
 // Get scrape status
 export async function getScrapeStatus(request: FastifyRequest, reply: FastifyReply) {

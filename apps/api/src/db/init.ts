@@ -1,4 +1,4 @@
-import { sqliteDb, schema } from '.';
+import { sqliteDb } from '.';
 import { migrate } from 'drizzle-orm/sqlite3/migrator';
 
 // Initialize database and run migrations

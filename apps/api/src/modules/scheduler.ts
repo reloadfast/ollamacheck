@@ -1,7 +1,5 @@
 import cron from 'node-cron';
 import { modelScraper } from './scraper';
-import { sqliteDb } from '../db';
-import { scrapeRunSchema } from '@ollamacheck/shared/src/schema';
 
 // Scheduler for daily scraping
 export class ScraperScheduler {
