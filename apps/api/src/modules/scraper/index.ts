@@ -3,6 +3,7 @@ import { scrapeRunSchema, modelSchema } from '@ollamacheck/shared/src/schema';
 import { z } from 'zod';
 import { v4 as uuidv4 } from 'uuid';
 import fetch from 'node-fetch';
+import { estimateVramGb, calculateFitScore } from './utils';
 
 // Types for scraper data
 export interface BaseModel {
@@ -257,8 +258,7 @@ export class ModelScraper {
 
   // VRAM estimation function
   estimateVramGb(paramsBillions: number, bitsPerWeight: number = 4): number {
-    // Formula: vram_gb = (params_billions * bits_per_weight) / 8 / 1e9 * 1.15  // 15% overhead
-    return (paramsBillions * bitsPerWeight) / 8 / 1e9 * 1.15;
+    return estimateVramGb(paramsBillions, bitsPerWeight);
   }
 
   // Fit score calculation function
@@ -267,18 +267,7 @@ export class ModelScraper {
     weeklyPulls: number,
     isCodeModel: boolean = false
   ): number {
-    // Calculate vram margin (how much headroom we have)
-    const vramMargin = Math.max(0, 40 - estimatedVramGb);
-
-    // Base score from VRAM margin and weekly pulls
-    let baseScore = vramMargin * 10 + weeklyPulls;
-
-    // Bonus for code models
-    if (isCodeModel) {
-      baseScore += 50;
-    }
-
-    return Math.round(baseScore);
+    return calculateFitScore(estimatedVramGb, weeklyPulls, isCodeModel);
   }
 
   // Main scraping function that processes all models

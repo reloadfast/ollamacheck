@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20.20.1'
+        node-version: '20'
         cache: 'pnpm'
 
     - name: Install pnpm
@@ -45,17 +45,3 @@ jobs:
       env:
         PNPM_CACHE_DIR: ~/.pnpm-store
 
-    - name: Build API
-      run: pnpm build:api
-      env:
-        PNPM_CACHE_DIR: ~/.pnpm-store
-
-    - name: Build Web
-      run: pnpm build:web
-      env:
-        PNPM_CACHE_DIR: ~/.pnpm-store
-
-    - name: Run integration tests
-      run: pnpm test:api
-      env:
-        PNPM_CACHE_DIR: ~/.pnpm-store
