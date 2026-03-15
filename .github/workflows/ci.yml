@@ -19,42 +19,11 @@ jobs:
         node-version: '20.20.1'
         cache: 'pnpm'
 
-    - name: Debug environment
+    - name: Install pnpm
       run: |
-        echo "Node version:"
-        node --version
-        echo "NPM version:"
-        npm --version
-        echo "Which node:"
-        which node
-        echo "PATH:"
-        echo $PATH
-
-    - name: Install pnpm from scratch
-      run: |
-        # Debug what's available
-        echo "Before installation:"
-        command -v pnpm || echo "pnpm not found"
-
-        # Remove any existing pnpm installations
-        if command -v pnpm > /dev/null; then
-          echo "Removing existing pnpm installation"
-          sudo rm -f $(which pnpm)
-        fi
-
-        # Install pnpm using npm with forced reinstall
-        echo "Installing pnpm..."
-        npm install -g pnpm@latest --force
-
-        # Verify installation
-        echo "After installation:"
-        if command -v pnpm > /dev/null; then
-          echo "pnpm installed successfully"
-          pnpm --version
-        else
-          echo "ERROR: pnpm installation failed"
-          exit 1
-        fi
+        npm install -g pnpm@latest
+        echo "pnpm version:"
+        pnpm --version
 
     - name: Install build dependencies for native modules
       run: |
