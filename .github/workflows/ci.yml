@@ -16,19 +16,38 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '20.20.1'
         cache: false
+
+    - name: Debug environment
+      run: |
+        echo "Node version:"
+        node --version
+        echo "NPM version:"
+        npm --version
+        echo "Which node:"
+        which node
+        echo "PATH:"
+        echo $PATH
 
     - name: Install pnpm from scratch
       run: |
+        # Debug what's available
+        echo "Before installation:"
+        command -v pnpm || echo "pnpm not found"
+
         # Remove any existing pnpm installations
         if command -v pnpm > /dev/null; then
           echo "Removing existing pnpm installation"
           sudo rm -f $(which pnpm)
         fi
+
         # Install pnpm using npm with forced reinstall
+        echo "Installing pnpm..."
         npm install -g pnpm@latest --force
+
         # Verify installation
+        echo "After installation:"
         if command -v pnpm > /dev/null; then
           echo "pnpm installed successfully"
           pnpm --version
