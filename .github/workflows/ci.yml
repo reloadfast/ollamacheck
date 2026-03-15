@@ -23,17 +23,30 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
 
+    - name: Install pnpm
+      run: npm install -g pnpm
+
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
+      env:
+        PNPM_CACHE_DIR: ~/.pnpm-store
 
     - name: Lint code
       run: pnpm lint
+      env:
+        PNPM_CACHE_DIR: ~/.pnpm-store
 
     - name: Run tests
       run: pnpm test
+      env:
+        PNPM_CACHE_DIR: ~/.pnpm-store
 
     - name: Build application
       run: pnpm build
+      env:
+        PNPM_CACHE_DIR: ~/.pnpm-store
 
     - name: Run integration tests
       run: pnpm test:api
+      env:
+        PNPM_CACHE_DIR: ~/.pnpm-store
