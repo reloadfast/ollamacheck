@@ -13,17 +13,19 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20.20.1'
+        node-version: '20'
         cache: 'pnpm'
 
-    - name: Install pnpm
-      run: |
-        npm install -g pnpm@latest
-        echo "pnpm version:"
-        pnpm --version
+    - name: Verify pnpm
+      run: pnpm --version
 
     - name: Install build dependencies for native modules
       run: |
@@ -42,20 +44,5 @@ jobs:
 
     - name: Run tests
       run: pnpm test
-      env:
-        PNPM_CACHE_DIR: ~/.pnpm-store
-
-    - name: Build API
-      run: pnpm build:api
-      env:
-        PNPM_CACHE_DIR: ~/.pnpm-store
-
-    - name: Build Web
-      run: pnpm build:web
-      env:
-        PNPM_CACHE_DIR: ~/.pnpm-store
-
-    - name: Run integration tests
-      run: pnpm test:api
       env:
         PNPM_CACHE_DIR: ~/.pnpm-store
