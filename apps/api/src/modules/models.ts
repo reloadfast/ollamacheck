@@ -22,8 +22,6 @@ const mockModels = [
 export async function getModels(request: FastifyRequest, reply: FastifyReply) {
   try {
     const {
-      category,
-      sort,
       limit = 20,
       page = 1
     } = request.query as any;
@@ -35,6 +33,11 @@ export async function getModels(request: FastifyRequest, reply: FastifyReply) {
 
     // For now, return mock data
     const models = mockModels;
+
+    // Calculate pagination
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + parseInt(limit as string);
+    const total = models.length;
 
     const paginatedModels = models.slice(startIndex, endIndex);
 
